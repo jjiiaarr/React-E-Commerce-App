@@ -1,7 +1,7 @@
 import React from "react";
 
 import "./FeatureProducts.css";
-import ProductCard from "./ProductCard";
+import ProductCard from "../Products/ProductCard";
 
 const FeatureProducts = () => {
   return (
