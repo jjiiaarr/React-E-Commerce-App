@@ -1,21 +1,15 @@
 import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 
 import "./LoginPage.css";
 
 const LoginPage = () => {
-  const [user, setUser] = useState({
-    name: "",
-    phone: "",
-  });
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(user);
-  };
+  const { register, handleSubmit } = useForm();
+  const onSubmit = (formData) => console.log(formData);
 
   return (
     <section className="align_center form_page">
-      <form className="authentication_form" onSubmit={handleSubmit}>
+      <form className="authentication_form" onSubmit={handleSubmit(onSubmit)}>
         <h2>Login Form</h2>
         <div className="form_inputs">
           <div>
@@ -25,8 +19,7 @@ const LoginPage = () => {
               id="name"
               className="form_text_input"
               placeholder="Enter your name"
-              onChange={(e) => setUser({ ...user, name: e.target.value })}
-              value={user.name}
+              {...register("name")}
             />
           </div>
           <div>
@@ -36,10 +29,7 @@ const LoginPage = () => {
               id="phone"
               className="form_text_input"
               placeholder="Enter your phone number"
-              onChange={(e) =>
-                setUser({ ...user, phone: parseInt(e.target.value) })
-              }
-              value={user.phone}
+              {...register("phone", { valueAsNumber: true })}
             />
           </div>
           <button type="submit" className="search_button form_submit">
