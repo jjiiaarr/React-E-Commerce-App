@@ -5,7 +5,7 @@ import ProductCard from "./ProductCard";
 
 const ProductsList = () => {
   return (
-    <section className="product_list_section">
+    <section className="products_list_section">
       <header className="align_center products_list_header">
         <h2>Products</h2>
         <select name="sort" id="" className="products_sorting">
