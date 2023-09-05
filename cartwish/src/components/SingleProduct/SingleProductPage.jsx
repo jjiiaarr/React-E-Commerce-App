@@ -18,7 +18,7 @@ const product = {
   stock: 10,
 };
 
-const SingProductPage = () => {
+const SingleProductPage = () => {
   const [selectedImage, setSelectedImage] = useState(0);
   return (
     <section className="align_center single_product">
@@ -54,4 +54,4 @@ const SingProductPage = () => {
   );
 };
 
-export default SingProductPage;
+export default SingleProductPage;
