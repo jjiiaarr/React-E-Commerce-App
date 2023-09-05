@@ -47,6 +47,10 @@
   margin: 15px;
 }
 
+.navbar_link > a.active {
+  font-weight: 600;
+}
+
 .cart_counts {
   justify-content: center;
   width: 20px;
