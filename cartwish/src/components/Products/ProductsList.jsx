@@ -10,7 +10,7 @@ const ProductsList = () => {
 
   useEffect(() => {
     apiClient
-      .get("/productss")
+      .get("/products")
       .then((res) => setProducts(res.data.products))
       .catch((err) => setError(err.message));
   }, []);
@@ -29,7 +29,16 @@ const ProductsList = () => {
       <div className="products_list">
         {error && <em className="form_error">{error}</em>}
         {products.map((product) => (
-          <ProductCard key={product._id} />
+          <ProductCard
+            key={product._id}
+            id={product._id}
+            image={product.images[0]}
+            price={product.price}
+            title={product.title}
+            rating={product.reviews.rating}
+            ratingCounts={product.reviews.counts}
+            stock={product.stock}
+          />
         ))}
       </div>
     </section>
