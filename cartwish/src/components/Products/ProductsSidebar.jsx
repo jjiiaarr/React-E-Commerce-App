@@ -1,20 +1,35 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
+import apiClient from "../../utils/api-client";
 import "./ProductsSidebar.css";
 import rocket from "../../assets/rocket.png";
 import LinkWithIcon from "../Navbar/LinkWithIcon";
 
 const ProductsSidebar = () => {
+  const [categories, setCategories] = useState([]);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    apiClient
+      .get("/category")
+      .then((res) => setCategories(res.data))
+      .catch((err) => setError(err.message));
+  }, []);
   return (
     <aside className="products_sidebar">
       <h2>Category</h2>
       <div className="category_links">
-        <LinkWithIcon
-          title="Electronics"
-          link="products?category=electronics"
-          emoji={rocket}
-          sidebar={true}
-        />
+        {error && <em className="form_error">{error}</em>}
+        {categories.map((category) => (
+          <LinkWithIcon
+            key={category._id}
+            id={category._id}
+            title={category.name}
+            link={`products?category=${category.name}`}
+            emoji={`http://localhost:5000/category/${category.image}`}
+            sidebar={true}
+          />
+        ))}
       </div>
     </aside>
   );
