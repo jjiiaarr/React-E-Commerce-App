@@ -17,7 +17,7 @@ const ProductCard = ({
   return (
     <article className="product_card">
       <div className="product_image">
-        <NavLink to={`product/${id}`}>
+        <NavLink to={`/product/${id}`}>
           <img
             src={`http://localhost:5000/products/${image}`}
             alt="product image"
@@ -36,6 +36,7 @@ const ProductCard = ({
             </p>
             <p className="product_review_count">{ratingCounts}</p>
           </div>
+
           {stock > 0 && (
             <button className="add_to_cart">
               <img src={basket} alt="basket button" />
