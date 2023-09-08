@@ -5,9 +5,12 @@ export function signup(user, profile) {
   body.append("name", user.name);
   body.append("email", user.email);
   body.append("password", user.password);
-  body.append("password", user.password);
   body.append("deliveryAddress", user.deliveryAddress);
   body.append("profilePic", profile);
 
-  return apiClient.post("/user.signup", body);
+  return apiClient.post("/user/signup", body);
+}
+
+function login(user) {
+  return apiClient.post("/user/login", user);
 }

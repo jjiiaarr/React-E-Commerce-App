@@ -21,6 +21,7 @@ const LoginPage = () => {
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: zodResolver(schema) });
+
   const onSubmit = (formData) => console.log(formData);
 
   return (

@@ -2,8 +2,10 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+
 import "./SignupPage.css";
 import user from "../../assets/user.webp";
+import { signup } from "../../services/userServices";
 
 const schema = z
   .object({
@@ -26,13 +28,22 @@ const schema = z
 
 const SignupPage = () => {
   const [profilePic, setProfilePic] = useState(null);
-  console.log(profilePic);
+  const [formError, setFormError] = useState("");
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: zodResolver(schema) });
-  const onSubmit = (formData) => console.log(formData);
+
+  const onSubmit = async (formData) => {
+    try {
+      await signup(formData, profilePic);
+    } catch (err) {
+      if (err.response && err.response.status === 400) {
+        setFormError(err.response.data.message);
+      }
+    }
+  };
   return (
     <section className="align_center form_page">
       <form
@@ -117,7 +128,7 @@ const SignupPage = () => {
             )}
           </div>
 
-          <div className="signup_textares_section">
+          <div className="signup_textarea_section">
             <label htmlFor="address">Delivery Address</label>
             <textarea
               id="address"
@@ -130,6 +141,8 @@ const SignupPage = () => {
             )}
           </div>
         </div>
+
+        {formError && <em className="form_error">{formError}</em>}
 
         <button className="search_button form_submit" type="submit">
           Submit
