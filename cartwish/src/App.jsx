@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
-import jwtDecode from "jwt-decode";
+import { ToastContainer, toast } from "react-toastify";
 
 import "./App.css";
 import Navbar from "./components/Navbar/Navbar";
 import Routing from "./components/Routing/Routing";
 import { getJwt, getUser } from "./services/userServices";
 import setAuthToken from "./utils/setAuthToken";
+import { addToCartAPI } from "./services/cartServices";
+import "react-toastify/dist/ReactToastify.css";
 
 setAuthToken(getJwt());
 
@@ -37,12 +39,21 @@ const App = () => {
     }
 
     setCart(updatedCart);
+    addToCartAPI(product._id, quantity)
+      .then((res) => {
+        toast.success("Product added successfully");
+      })
+      .catch((err) => {
+        toast.error("Product added failed");
+        setCart(cart);
+      });
   };
 
   return (
     <div className="app">
       <Navbar user={user} cartCount={cart.length} />
       <main>
+        <ToastContainer position="bottom-right" />
         <Routing addToCart={addToCart} />
       </main>
     </div>
