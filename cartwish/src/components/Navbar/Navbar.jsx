@@ -1,7 +1,7 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 
 import "./Navbar.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import rocket from "../../assets/rocket.png";
 import star from "../../assets/glowing-star.png";
 import idButton from "../../assets/id-button.png";
@@ -13,17 +13,28 @@ import UserContext from "../../contexts/UserContext";
 import CartContext from "../../contexts/CartContext";
 
 const Navbar = () => {
+  const [search, setSearch] = useState("");
+  const navigate = useNavigate();
   const user = useContext(UserContext);
   const { cart } = useContext(CartContext);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (search.trim() !== "") {
+      navigate(`/products?search=${search.trim()}`);
+    }
+  };
   return (
     <nav className="align_center navbar">
       <div className="align_center">
         <h1 className="navbar_heading">CartWish</h1>
-        <form className="align_center navbar_form">
+        <form className="align_center navbar_form" onSubmit={handleSubmit}>
           <input
             type="text"
             className="navbar_search"
             placeholder="Search Products"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
           />
           <button type="submit" className="search_button">
             Search
