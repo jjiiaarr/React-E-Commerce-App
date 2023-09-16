@@ -5,15 +5,13 @@ import ProductsSidebar from "./ProductsSidebar";
 import ProductsList from "./ProductsList";
 
 const ProductsPage = () => {
-  return (
-    <section className="products_page">
-      <ProductsSidebar />
+    return (
+        <section className='products_page'>
+            <ProductsSidebar />
 
-      <ProductsList />
-
-      <section className="products_list_section">Products List</section>
-    </section>
-  );
+            <ProductsList />
+        </section>
+    );
 };
 
 export default ProductsPage;
